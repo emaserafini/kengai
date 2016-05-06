@@ -17,3 +17,8 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
 end
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver', '~> 2.53'
+end
