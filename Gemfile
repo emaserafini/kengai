@@ -6,6 +6,9 @@ gem 'rails', '4.2.6'
 # DB
 gem 'pg', '~> 0.15'
 
+# AUTHENTICATION
+gem 'devise'
+
 # VIEW RELATED
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
