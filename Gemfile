@@ -24,5 +24,6 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver', '~> 2.53'
+  gem 'database_cleaner'
   gem 'codeclimate-test-reporter', require: false
 end
