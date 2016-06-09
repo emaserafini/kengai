@@ -58,5 +58,7 @@ RSpec.configure do |config|
   #  Use t() instead of I18n.t() in all of your tests
   config.include AbstractController::Translation
 
+  config.include FactoryGirl::Syntax::Methods
+
   config.include DeviseFeatureMacros, type: :feature
 end
