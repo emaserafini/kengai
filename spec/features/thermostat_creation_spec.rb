@@ -22,7 +22,7 @@ RSpec.describe 'Thermostat creation', type: :feature do
   end
 
   scenario 'Visitor visits thermostat creation page being redirected to login form' do
-    visit new_thermostat_device_path
+    visit new_thermostat_path
 
     expect(page).to have_text 'Log in'
   end
