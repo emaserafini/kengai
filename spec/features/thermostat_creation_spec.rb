@@ -1,27 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Thermostat creation', type: :feature do
-  let!(:user) { User.create email: 'foo@example.com', password: 'password', password_confirmation: 'password', confirmed_at: Time.now }
+  let(:user) { create :confirmed_user }
 
-  scenario 'Logged user visits dashboard page, tries to add a new thermostat with valid data and sees a successfull message' do
-    sign_in user
+  scenario 'logged user visits dashboard page, tries to add a new thermostat with valid data and sees a successfull message and see new thermostat in thermostats list page' do
+    sign_in
     click_link 'Add thermostat'
 
-    fill_in 'Name', with: 'Home'
+    fill_in 'Name', with: 'My new thermostat'
     click_button 'Create Thermostat'
-
     expect(page).to have_text 'Thermostat was successfully created'
+
+    visit thermostats_path
+    expect(page).to have_text 'My new thermostat'
   end
 
-  scenario 'Logged user visits dashboard page, tries to add a new thermostat with valid data and sees an error message' do
-    sign_in user
+  scenario 'logged user visits dashboard page, tries to add a new thermostat with valid data and sees an error message' do
+    sign_in
     click_link 'Add thermostat'
     click_button 'Create Thermostat'
 
     expect(page).to have_text "Name can't be blank"
   end
 
-  scenario 'Visitor visits thermostat creation page being redirected to login form' do
+  scenario 'visitor visits thermostat creation page being redirected to login form' do
     visit new_thermostat_path
 
     expect(page).to have_text 'Log in'

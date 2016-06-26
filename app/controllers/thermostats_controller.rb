@@ -3,7 +3,7 @@ class ThermostatsController < ApplicationController
   before_action :set_thermostat, only: [:show, :edit, :update, :destroy]
 
   def index
-    @thermostats = Thermostat.all
+    @thermostats = current_user.thermostats
   end
 
   def show
@@ -18,6 +18,7 @@ class ThermostatsController < ApplicationController
 
   def create
     @thermostat = Thermostat.new(thermostat_params)
+    @thermostat.subscribers.build user: current_user, admin: true
 
     if @thermostat.save
       redirect_to @thermostat, notice: 'Thermostat was successfully created.'
@@ -43,7 +44,7 @@ class ThermostatsController < ApplicationController
   private
 
   def set_thermostat
-    @thermostat = Thermostat.find(params[:id])
+    @thermostat = current_user.thermostat_devices.find(params[:id])
   end
 
   def thermostat_params
