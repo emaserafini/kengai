@@ -28,4 +28,18 @@ RSpec.describe 'Thermostat creation', type: :feature do
 
     expect(page).to have_text 'Log in'
   end
+
+  scenario 'user after creation sees thermostat disabled by default' do
+    thermostat = create :thermostat, name: 'my', user: user
+    sign_in user
+    visit thermostat_path thermostat
+    expect(page).to have_text 'disabled'
+  end
+
+  scenario 'user after creation sees thermostat API access token' do
+    thermostat = create :thermostat, name: 'my', user: user
+    sign_in user
+    visit thermostat_path thermostat
+    expect(page).to have_text thermostat.access_token
+  end
 end

@@ -44,7 +44,7 @@ class ThermostatsController < ApplicationController
   private
 
   def set_thermostat
-    @thermostat = current_user.thermostat_devices.find(params[:id])
+    @thermostat = current_user.thermostats.find_by_uuid(params[:uuid])
   end
 
   def thermostat_params
