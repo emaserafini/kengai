@@ -3,5 +3,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :subscribers
-  has_many :thermostat, through: :subscribers
+  has_many :thermostats, through: :subscribers
 end

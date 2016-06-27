@@ -30,6 +30,7 @@ RSpec.describe 'Thermostat creation', type: :feature do
   end
 
   scenario 'user after creation sees thermostat disabled by default' do
+    pending
     thermostat = create :thermostat, name: 'my', user: user
     sign_in user
     visit thermostat_path thermostat
