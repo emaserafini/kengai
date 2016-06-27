@@ -49,7 +49,7 @@ module Application
     end
 
     def thermostat_params
-      params.require(:thermostat).permit(:name)
+      params.require(:thermostat).permit(:name, :enabled)
     end
   end
 end

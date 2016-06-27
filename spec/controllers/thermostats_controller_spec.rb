@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ThermostatsController, type: :controller do
+RSpec.describe Application::ThermostatsController, type: :controller do
   sign_in
 
   let(:valid_attributes) { { name: 'valid name' } }
