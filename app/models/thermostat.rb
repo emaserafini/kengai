@@ -8,11 +8,13 @@ class Thermostat < ActiveRecord::Base
 
   before_create :set_disabled, unless: :enabled?
   before_save :assign_uuid, :assign_access_token
-  around_save :save_managing_uniqueness
+  around_save :save_managing_uniqueness,
+    if: Proc.new { |thermostat| UNIQUE_FIELDS.map{ |field| thermostat.send("#{field}_changed?") }.include?(true) }
 
   def to_param
     uuid
   end
+
 
   private
 
