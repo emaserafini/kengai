@@ -1,7 +1,7 @@
 class Thermostat < ActiveRecord::Base
   UNIQUE_FIELDS = %w(uuid access_token).freeze
 
-  has_many :subscribers, inverse_of: :thermostat
+  has_many :subscribers, inverse_of: :thermostat, dependent: :destroy
   has_many :users, through: :subscribers
   has_one :temperature, -> { where type: 'Temperature' }, class_name: 'Sensor', dependent: :destroy, required: true
 
