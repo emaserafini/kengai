@@ -20,6 +20,7 @@ module Application
     def create
       @thermostat = Thermostat.new(thermostat_params)
       @thermostat.subscribers.build user: current_user, admin: true
+      @thermostat.build_temperature
 
       if @thermostat.save
         redirect_to @thermostat, notice: 'Thermostat was successfully created.'
