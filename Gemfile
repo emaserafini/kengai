@@ -28,5 +28,6 @@ group :test do
   gem 'selenium-webdriver', '~> 2.53'
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
 end
