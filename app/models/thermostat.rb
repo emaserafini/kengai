@@ -25,7 +25,7 @@ class Thermostat < ActiveRecord::Base
   end
 
   def save_managing_uniqueness
-    attempts = 0
+    attempts ||= 0
     self.class.connection.execute('SAVEPOINT before_record_create;')
     yield
     self.class.connection.execute('RELEASE SAVEPOINT before_record_create;')
