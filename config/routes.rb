@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     constraints(uuid: UUID_REGEXP) do
-      resources :thermostats, param: :uuid, only: :show
+      resources :thermostats, param: :uuid, only: [:show, :update]
     end
   end
 end

@@ -7,6 +7,6 @@ class APIController < ActionController::Base
   private
 
   def render_no_record_found
-    render json: { message: 'record not found' }, status: 404
+    render json: { errors: 'record not found' }, status: 404
   end
 end
