@@ -12,4 +12,10 @@ Rails.application.routes.draw do
     end
     root 'home#index'
   end
+
+  namespace :api do
+    constraints(uuid: UUID_REGEXP) do
+      resources :thermostats, param: :uuid, only: :show
+    end
+  end
 end

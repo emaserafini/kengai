@@ -18,18 +18,18 @@ RSpec.describe Thermostat, type: :model do
   end
 
   describe 'on save' do
-    context 'when uuid is already present' do
+    context 'when generated uuid is already present' do
       let!(:other_thermostat) { create :thermostat }
 
       subject { build(:thermostat, uuid: other_thermostat.uuid) }
 
-      it 'generate a new token and it saves successfully' do
+      it 'generates a new token and it saves successfully' do
         subject.save
         expect(subject.uuid).not_to eq other_thermostat.uuid
         expect(subject).to be_persisted
       end
 
-      it 'raise an error when uuid generation fails tree times' do
+      it 'raises an error when uuid generation fails tree times' do
         allow(SecureRandom).to receive(:uuid).and_return other_thermostat.uuid
         expect { subject.save }.to raise_error ActiveRecord::RecordNotUnique, 'Retries exhausted'
       end
@@ -41,18 +41,18 @@ RSpec.describe Thermostat, type: :model do
       end
     end
 
-    context 'when access_token is already present' do
+    context 'when generated access_token is already present' do
       let!(:other_thermostat) { create :thermostat }
 
       subject { build(:thermostat, access_token: other_thermostat.access_token) }
 
-      it 'generate a new token and it saves successfully' do
+      it 'generates a new token and it saves successfully' do
         subject.save
         expect(subject.access_token).not_to eq other_thermostat.access_token
         expect(subject).to be_persisted
       end
 
-      it 'raise an error when uuid generation fails tree times' do
+      it 'raises an error when access_token generation fails tree times' do
         allow(SecureRandom).to receive(:uuid).and_return other_thermostat.access_token
         expect { subject.save }.to raise_error ActiveRecord::RecordNotUnique, 'Retries exhausted'
       end
