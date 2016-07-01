@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe API::ThermostatsController, type: :controller do
-  let(:body) { JSON.parse response.body, symbolize_names: true }
-
   describe 'GET #show' do
     context 'when thermostat does not exists' do
       before { get :show, { uuid: SecureRandom.uuid } }
 
       it { expect(response).to have_http_status :not_found }
+      it { expect(response.content_type).to eq 'application/json' }
 
       it 'returns an error message' do
-        expect(body[:errors]).to eq 'record not found'
+        expect(json_response[:errors]).to eq 'record not found'
       end
     end
 
@@ -21,6 +20,7 @@ RSpec.describe API::ThermostatsController, type: :controller do
       end
 
       it { expect(response).to have_http_status :ok }
+      it { expect(response.content_type).to eq 'application/json' }
     end
   end
 
@@ -29,9 +29,10 @@ RSpec.describe API::ThermostatsController, type: :controller do
       before { put :update, { uuid: SecureRandom.uuid } }
 
       it { expect(response).to have_http_status :not_found }
+      it { expect(response.content_type).to eq 'application/json' }
 
       it 'returns an error message' do
-        expect(body[:errors]).to eq 'record not found'
+        expect(json_response[:errors]).to eq 'record not found'
       end
     end
 
@@ -45,16 +46,18 @@ RSpec.describe API::ThermostatsController, type: :controller do
         let(:name) { '' }
 
         it 'returns an error message' do
-          expect(body[:errors]).to eq({ name: ["can't be blank"] })
+          expect(json_response[:errors]).to eq({ name: ["can't be blank"] })
         end
 
         it { expect(response).to have_http_status :unprocessable_entity }
+        it { expect(response.content_type).to eq 'application/json' }
       end
 
       context 'and can be updated' do
         let(:name) { 'foo' }
 
         it { expect(response).to have_http_status :ok }
+        it { expect(response.content_type).to eq 'application/json' }
       end
     end
   end

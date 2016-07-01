@@ -12,6 +12,8 @@ class Thermostat < ActiveRecord::Base
   around_save :save_managing_uniqueness,
     if: Proc.new { |thermostat| UNIQUE_FIELDS.map{ |field| thermostat.send("#{field}_changed?") }.include?(true) }
 
+  accepts_nested_attributes_for :temperature
+
   def to_param
     uuid
   end
