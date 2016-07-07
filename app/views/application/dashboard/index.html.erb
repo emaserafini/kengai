@@ -5,23 +5,27 @@
         <div class="header item"><%= thermostat.name %></div>
         <div class="right menu">
           <div class="item">
-            <i class="wrench icon"></i>
+            <i class="options icon"></i>
           </div>
         </div>
       </div>
       <div class="ui bottom attached segment">
-<!--         <div class="ui tiny buttons">
-          <button class="ui button <%= 'positive active' if thermostat.enabled %>">on</button>
-          <button class="ui button <%= 'active' unless thermostat.enabled %>">off</button>
-        </div>
- -->        <%= form_for thermostat, remote: true, authenticity_token: true, class: 'ui form' do |f| %>
-          <div class="inline field">
-            <div class="ui toggle checkbox" data-behavior='submit_on_check'>
-              <%= f.check_box :enabled, class: 'hidden' %>
-              <%= f.label 'Status' %>
-            </div>
+        <div class="ui grid">
+          <div class="six wide column">
+            <span><%= thermostat.temperature.value %></span>
+            <span><%= thermostat.temperature.scale %></span>
           </div>
-        <% end %>
+          <div class="eight wide column">
+            <%= form_for thermostat, remote: true, authenticity_token: true, class: 'ui form' do |f| %>
+              <div class="inline field">
+                <div class="ui toggle checkbox" data-behaviour='submit-on-check'>
+                  <%= f.check_box :enabled, class: 'hidden' %>
+                  <%= f.label 'Status' %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

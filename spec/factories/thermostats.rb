@@ -4,7 +4,7 @@ FactoryGirl.define do
     association :temperature, strategy: :build
 
     transient do
-      user { create :user }
+      user { create :confirmed_user }
       admin true
     end
 
