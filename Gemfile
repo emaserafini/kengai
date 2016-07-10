@@ -33,6 +33,7 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver', '~> 2.53'
+  gem 'headless', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
