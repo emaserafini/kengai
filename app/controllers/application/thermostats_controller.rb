@@ -30,7 +30,6 @@ module Application
     end
 
     def update
-      binding.pry
       if @thermostat.update(thermostat_params)
         respond_to do |format|
           format.html { redirect_to @thermostat, notice: 'Thermostat was successfully updated.' }
