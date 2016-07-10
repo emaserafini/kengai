@@ -1,3 +1,2 @@
-$(document).on 'ready page:load', ->
+$(document).on 'turbolinks:load', ->
   $('.ui.dropdown').dropdown()
-  # $('.ui.checkbox').checkbox()
