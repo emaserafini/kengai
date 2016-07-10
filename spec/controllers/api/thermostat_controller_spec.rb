@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe API::ThermostatsController, type: :controller do
   describe 'GET #show' do
     context 'when thermostat does not exists' do
-      before { get :show, { uuid: SecureRandom.uuid } }
+      before { get :show, params: { uuid: SecureRandom.uuid } }
 
       it { expect(response).to have_http_status :not_found }
       it { expect(response.content_type).to eq 'application/json' }
@@ -16,7 +16,7 @@ RSpec.describe API::ThermostatsController, type: :controller do
     context 'when thermostat exists' do
       before do
        thermostat = create(:thermostat)
-        get :show, { uuid: thermostat.uuid }
+        get :show, params: { uuid: thermostat.uuid }
       end
 
       it { expect(response).to have_http_status :ok }
@@ -26,7 +26,7 @@ RSpec.describe API::ThermostatsController, type: :controller do
 
   describe 'PUT #update' do
     context 'when thermostat does not exists' do
-      before { put :update, { uuid: SecureRandom.uuid } }
+      before { put :update, params: { uuid: SecureRandom.uuid } }
 
       it { expect(response).to have_http_status :not_found }
       it { expect(response.content_type).to eq 'application/json' }
@@ -41,7 +41,7 @@ RSpec.describe API::ThermostatsController, type: :controller do
         before do
           thermostat = create(:thermostat)
           request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials 'invalid_token'
-          put :update, { uuid: thermostat.uuid, thermostat: { name: 'foo' } }
+          put :update, params: { uuid: thermostat.uuid, thermostat: { name: 'foo' } }
         end
 
         it { expect(response).to have_http_status :unauthorized }
@@ -56,7 +56,7 @@ RSpec.describe API::ThermostatsController, type: :controller do
         before do
           thermostat = create(:thermostat)
           request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials thermostat.access_token
-          put :update, { uuid: thermostat.uuid, thermostat: { name: name } }
+          put :update, params: { uuid: thermostat.uuid, thermostat: { name: name } }
         end
 
         context "and can't be updated" do
