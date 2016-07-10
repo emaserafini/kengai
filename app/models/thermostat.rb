@@ -1,4 +1,4 @@
-class Thermostat < ActiveRecord::Base
+class Thermostat < ApplicationRecord
   UNIQUE_FIELDS = %w(uuid access_token).freeze
 
   has_many :subscribers, inverse_of: :thermostat, dependent: :destroy
