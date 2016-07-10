@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
 # RAILS
-gem 'rails', '4.2.6'
+gem 'rails', '~> 5.0.0'
+
+# APPLICATION SERVER
+gem 'puma', '~> 3.0'
 
 # DB
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 0.18'
 
 # AUTHENTICATION
 gem 'devise'
@@ -14,7 +17,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 group :development, :test do
