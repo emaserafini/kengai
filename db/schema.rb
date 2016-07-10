@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -25,10 +24,9 @@ ActiveRecord::Schema.define(version: 20160630114914) do
     t.datetime "value_updated_at"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.index ["thermostat_id", "type"], name: "index_sensors_on_thermostat_id_and_type", unique: true, using: :btree
+    t.index ["thermostat_id"], name: "index_sensors_on_thermostat_id", using: :btree
   end
-
-  add_index "sensors", ["thermostat_id", "type"], name: "index_sensors_on_thermostat_id_and_type", unique: true, using: :btree
-  add_index "sensors", ["thermostat_id"], name: "index_sensors_on_thermostat_id", using: :btree
 
   create_table "subscribers", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -36,10 +34,9 @@ ActiveRecord::Schema.define(version: 20160630114914) do
     t.boolean  "admin",         null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["thermostat_id"], name: "index_subscribers_on_thermostat_id", using: :btree
+    t.index ["user_id"], name: "index_subscribers_on_user_id", using: :btree
   end
-
-  add_index "subscribers", ["thermostat_id"], name: "index_subscribers_on_thermostat_id", using: :btree
-  add_index "subscribers", ["user_id"], name: "index_subscribers_on_user_id", using: :btree
 
   create_table "thermostats", force: :cascade do |t|
     t.string   "name"
@@ -48,10 +45,9 @@ ActiveRecord::Schema.define(version: 20160630114914) do
     t.uuid     "uuid",         null: false
     t.uuid     "access_token", null: false
     t.boolean  "enabled",      null: false
+    t.index ["access_token"], name: "index_thermostats_on_access_token", unique: true, using: :btree
+    t.index ["uuid"], name: "index_thermostats_on_uuid", unique: true, using: :btree
   end
-
-  add_index "thermostats", ["access_token"], name: "index_thermostats_on_access_token", unique: true, using: :btree
-  add_index "thermostats", ["uuid"], name: "index_thermostats_on_uuid", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -70,11 +66,10 @@ ActiveRecord::Schema.define(version: 20160630114914) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "sensors", "thermostats"
   add_foreign_key "subscribers", "thermostats"
