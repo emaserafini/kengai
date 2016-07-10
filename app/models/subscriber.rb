@@ -1,4 +1,4 @@
 class Subscriber < ApplicationRecord
-  belongs_to :user, required: true
-  belongs_to :thermostat, required: true
+  belongs_to :user
+  belongs_to :thermostat
 end
