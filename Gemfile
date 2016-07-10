@@ -20,6 +20,10 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
+group :development do
+  gem 'listen', '~> 3.0.5'
+end
+
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
