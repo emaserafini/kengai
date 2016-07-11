@@ -1,10 +1,8 @@
 <header>
-  <div class="ui top fixed menu">
-    <%= link_to root_path do %>
-      <div class="header item">Kengai</div>
-    <% end -%>
-    <% if current_user %>
-      <div class="right menu">
+  <div class="ui top fixed menu <%= 'large' if current_user %>">
+    <%= link_to 'Kengai', root_path, class: 'header item' %>
+    <div class="right menu">
+      <% if current_user %>
         <div class="ui dropdown item button">
           <i class="settings icon"></i>
           <i class="dropdown icon"></i>
@@ -13,16 +11,14 @@
             <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'item' %>
           </div>
         </div>
-      </div>
-    <% else %>
-      <div class="right menu">
-        <%= link_to new_user_registration_path, class: 'item' do %>
-          <div class="ui primary button">Sign up</div>
-        <% end -%>
-        <%= link_to new_user_session_path, class: 'item' do %>
-          <div class="ui button">Sign in</div>
-        <% end -%>
-      </div>
-    <% end %>
+      <% else %>
+        <div class="item">
+          <%= link_to 'Sign up', new_user_registration_path, class: 'ui primary button' %>
+        </div>
+        <div class="item">
+          <%= link_to 'Sign in', new_user_session_path, class: 'ui button' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </header>
