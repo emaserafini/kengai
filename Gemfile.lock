@@ -234,7 +234,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.0)
   rspec-collection_matchers
-  rspec-rails (~> 3.0)
+  rspec-rails (~> 3.4)
   sass-rails (~> 5.0)
   selenium-webdriver (~> 2.53)
   semantic-ui-sass!

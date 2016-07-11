@@ -26,7 +26,7 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '~> 3.4'
   gem 'rspec-collection_matchers'
 end
 
