@@ -3,16 +3,18 @@ class Thermostat < ApplicationRecord
 
   has_many :subscribers, inverse_of: :thermostat, dependent: :destroy
   has_many :users, through: :subscribers
-  has_one :temperature, -> { where type: 'Temperature' }, class_name: 'Sensor', dependent: :destroy, required: true
-
-  validates :name, presence: true
+  has_one :temperature, -> { where type: Temperature.name }, class_name: 'Sensor', dependent: :destroy, required: true
+  has_one :humidity, -> { where type: Humidity.name }, class_name: 'Sensor', dependent: :destroy, required: true
 
   before_create :set_disabled, unless: :enabled?
   before_save :assign_uuid, :assign_access_token
   around_save :save_managing_uniqueness,
     if: Proc.new { |thermostat| UNIQUE_FIELDS.map{ |field| thermostat.send("#{field}_changed?") }.include?(true) }
 
-  accepts_nested_attributes_for :temperature
+  validates :name, presence: true
+
+  accepts_nested_attributes_for :temperature, update_only: true
+  accepts_nested_attributes_for :humidity, update_only: true
 
   def to_param
     uuid
