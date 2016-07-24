@@ -11,8 +11,9 @@ RSpec.describe Thermostat, type: :model do
     end
 
     it 'pass when constraints are met' do
-      subject.name = 'name'
+      subject.name        = 'name'
       subject.temperature = build :temperature
+      subject.humidity    = build :humidity
       expect(subject).to be_valid
     end
   end

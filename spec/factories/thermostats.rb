@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :thermostat do
     sequence(:name) { |n| "home \##{n}" }
-    association :temperature, strategy: :build
+    temperature
+    humidity
 
     transient do
       user { create :confirmed_user }

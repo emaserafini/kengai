@@ -3,8 +3,8 @@ class Thermostat < ApplicationRecord
 
   has_many :subscribers, inverse_of: :thermostat, dependent: :destroy
   has_many :users, through: :subscribers
-  has_one :temperature, -> { where type: Temperature.name }, class_name: 'Sensor', dependent: :destroy, required: true
-  has_one :humidity, -> { where type: Humidity.name }, class_name: 'Sensor', dependent: :destroy, required: true
+  belongs_to :temperature, class_name: 'Temperature', dependent: :destroy
+  belongs_to :humidity, class_name: 'Humidity', dependent: :destroy
 
   before_create :set_disabled, unless: :enabled?
   before_save :assign_uuid, :assign_access_token

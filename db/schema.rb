@@ -10,22 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630114914) do
+ActiveRecord::Schema.define(version: 20160724150703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "sensors", force: :cascade do |t|
-    t.integer  "thermostat_id",    null: false
     t.string   "type",             null: false
     t.float    "value"
     t.string   "scale"
     t.datetime "value_updated_at"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["thermostat_id", "type"], name: "index_sensors_on_thermostat_id_and_type", unique: true, using: :btree
-    t.index ["thermostat_id"], name: "index_sensors_on_thermostat_id", using: :btree
   end
 
   create_table "subscribers", force: :cascade do |t|
@@ -40,12 +37,16 @@ ActiveRecord::Schema.define(version: 20160630114914) do
 
   create_table "thermostats", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.uuid     "uuid",         null: false
-    t.uuid     "access_token", null: false
-    t.boolean  "enabled",      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.uuid     "uuid",           null: false
+    t.uuid     "access_token",   null: false
+    t.boolean  "enabled",        null: false
+    t.integer  "temperature_id", null: false
+    t.integer  "humidity_id",    null: false
     t.index ["access_token"], name: "index_thermostats_on_access_token", unique: true, using: :btree
+    t.index ["humidity_id"], name: "index_thermostats_on_humidity_id", using: :btree
+    t.index ["temperature_id"], name: "index_thermostats_on_temperature_id", using: :btree
     t.index ["uuid"], name: "index_thermostats_on_uuid", unique: true, using: :btree
   end
 
@@ -71,7 +72,6 @@ ActiveRecord::Schema.define(version: 20160630114914) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "sensors", "thermostats"
   add_foreign_key "subscribers", "thermostats"
   add_foreign_key "subscribers", "users"
 end
