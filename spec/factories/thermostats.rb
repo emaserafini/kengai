@@ -9,7 +9,7 @@ FactoryGirl.define do
       admin true
     end
 
-    after(:create) do |thermostat, evaluator|
+    after(:build) do |thermostat, evaluator|
       create :subscriber, user: evaluator.user, thermostat: thermostat, admin: evaluator.admin
     end
   end
