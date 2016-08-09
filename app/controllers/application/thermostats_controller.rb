@@ -31,13 +31,13 @@ module Application
     end
 
     def update
-      if @thermostat.update(thermostat_params)
-        respond_to do |format|
+      respond_to do |format|
+        if @thermostat.update(thermostat_params)
           format.html { redirect_to @thermostat, notice: 'Thermostat was successfully updated.' }
-          format.js { render json: @thermostat }
+        else
+          format.html { render :edit }
         end
-      else
-        render :edit
+        format.js
       end
     end
 

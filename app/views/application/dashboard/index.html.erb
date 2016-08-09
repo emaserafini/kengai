@@ -1,32 +1,7 @@
 <% if @thermostats.any? %>
   <div class="ui container">
     <% @thermostats.each do |thermostat| %>
-      <div class="ui top attached secondary menu">
-        <div class="header item"><%= thermostat.name %></div>
-        <div class="right menu">
-          <div class="item">
-            <i class="options icon"></i>
-          </div>
-        </div>
-      </div>
-      <div class="ui bottom attached segment">
-        <div class="ui grid">
-          <div class="six wide column">
-            <span><%= thermostat.temperature.value %></span>
-            <span><%= thermostat.temperature.scale %></span>
-          </div>
-          <div class="eight wide column">
-            <%= form_for thermostat, remote: true, authenticity_token: true, class: 'ui form' do |f| %>
-              <div class="inline field">
-                <div class="ui toggle checkbox" data-behaviour='submit-on-check'>
-                  <%= f.check_box :enabled, class: 'hidden' %>
-                  <%= f.label 'Status' %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'thermostat', object: thermostat %>
     <% end %>
   </div>
 <% else %>
