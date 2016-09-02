@@ -5,27 +5,35 @@ class Thermostat < ApplicationRecord
   has_many :users, through: :subscribers
   belongs_to :temperature, class_name: 'Temperature', dependent: :destroy
   belongs_to :humidity, class_name: 'Humidity', dependent: :destroy
+  has_one :manual_program, dependent: :destroy, inverse_of: :thermostat
 
-  before_create :set_disabled, unless: :enabled?
+  enum status: { standby: 0, heating: 1, cooling: 2 }
+  enum program_status: { manual: 0 } # auto: 1
+
+  before_validation :set_default_values, on: :create
   before_save :assign_uuid, :assign_access_token
   around_save :save_managing_uniqueness,
-    if: Proc.new { |thermostat| UNIQUE_FIELDS.map{ |field| thermostat.send("#{field}_changed?") }.include?(true) }
+    if: proc { |thermostat| UNIQUE_FIELDS.map{ |field| thermostat.send("#{field}_changed?") }.include?(true) }
 
-  validates :name, presence: true
+  validates :name, :status, :program_status, presence: true
 
-  accepts_nested_attributes_for :temperature, update_only: true
-  accepts_nested_attributes_for :humidity, update_only: true
+  accepts_nested_attributes_for :temperature, :humidity, :manual_program
 
   def to_param
     uuid
   end
 
+  def program
+    send "#{program_status}_program"
+  end
+
 
   private
 
-  def set_disabled
-    self.enabled = false
-    true
+  def set_default_values
+    self.enabled = false unless enabled?
+    self.status         ||= :standby
+    self.program_status ||= :manual
   end
 
   def save_managing_uniqueness

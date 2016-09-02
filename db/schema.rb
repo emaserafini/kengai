@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731090123) do
+ActiveRecord::Schema.define(version: 20160831215026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 20160731090123) do
     t.boolean  "enabled",        null: false
     t.integer  "temperature_id", null: false
     t.integer  "humidity_id",    null: false
+    t.integer  "status",         null: false
+    t.integer  "program_status", null: false
+    t.datetime "started_at"
     t.index ["access_token"], name: "index_thermostats_on_access_token", unique: true, using: :btree
     t.index ["humidity_id"], name: "index_thermostats_on_humidity_id", using: :btree
     t.index ["temperature_id"], name: "index_thermostats_on_temperature_id", using: :btree

@@ -22,6 +22,7 @@ module Application
       @thermostat.subscribers.build user: current_user, admin: true
       @thermostat.build_temperature
       @thermostat.build_humidity
+      @thermostat.build_manual_program
 
       if @thermostat.save
         redirect_to @thermostat, notice: 'Thermostat was successfully created.'
