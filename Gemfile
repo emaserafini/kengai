@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass'
 
 group :development do
   gem 'listen', '~> 3.0.5'
@@ -28,6 +28,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.4'
   gem 'rspec-collection_matchers'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :test do
@@ -35,7 +36,6 @@ group :test do
   gem 'selenium-webdriver', '~> 2.53'
   gem 'headless', require: false
   gem 'database_cleaner'
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
 end
