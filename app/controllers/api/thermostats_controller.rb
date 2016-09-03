@@ -33,7 +33,7 @@ module API
     end
 
     def render_unauthorized
-      self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+      headers['WWW-Authenticate'] = 'Token realm="Application"'
       render json: { errors: 'invalid token' }, status: :unauthorized
     end
 

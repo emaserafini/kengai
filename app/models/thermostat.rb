@@ -7,13 +7,14 @@ class Thermostat < ApplicationRecord
   belongs_to :humidity, class_name: 'Humidity', dependent: :destroy
   has_one :manual_program, dependent: :destroy, inverse_of: :thermostat
 
-  enum status: { standby: 0, heating: 1, cooling: 2 }
+  enum status: { standby: 0, unknown: 1, heating: 2, cooling: 3 }
   enum program_status: { manual: 0 } # auto: 1
 
   before_validation :set_default_values, on: :create
   before_save :assign_uuid, :assign_access_token
   around_save :save_managing_uniqueness,
     if: proc { |thermostat| UNIQUE_FIELDS.map{ |field| thermostat.send("#{field}_changed?") }.include?(true) }
+  before_update :update_started_at, if: :status_changed?
 
   validates :name, :status, :program_status, presence: true
 
@@ -27,12 +28,20 @@ class Thermostat < ApplicationRecord
     send "#{program_status}_program"
   end
 
+  def active?
+    heating? || cooling?
+  end
+
+  def update_started_at
+    self.started_at = Time.now if active?
+  end
+
 
   private
 
   def set_default_values
     self.enabled = false unless enabled?
-    self.status         ||= :standby
+    self.status         ||= :unknown
     self.program_status ||= :manual
   end
 

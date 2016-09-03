@@ -11,6 +11,17 @@ FactoryGirl.define do
 
     after(:build) do |thermostat, evaluator|
       create :subscriber, user: evaluator.user, thermostat: thermostat, admin: evaluator.admin
+      create :manual_program, thermostat: thermostat
     end
+
+    trait :enabled do
+      enabled true
+    end
+
+    trait :manual do
+      program_status :manual
+    end
+
+    factory :manual_thermostat, traits: [ :enabled, :manual ]
   end
 end

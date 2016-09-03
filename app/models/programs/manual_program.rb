@@ -8,7 +8,7 @@ class ManualProgram < ApplicationRecord
   validates :deviation_temperature, numericality: { greater_than_or_equal_to: 0 }
   validates :minimum_run, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  before_validation :set_default_values, on: :create
+  after_initialize :set_default_values
 
 
   private
