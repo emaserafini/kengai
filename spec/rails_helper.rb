@@ -48,4 +48,12 @@ RSpec.configure do |config|
 
   config.include Controllers::JsonHelpers, type: :controller
   config.include Requests::JsonHelpers, type: :request
+
+  if ENV['CI']
+    config.before :suite do
+      require 'headless'
+      headless = Headless.new
+      headless.start
+    end
+  end
 end
