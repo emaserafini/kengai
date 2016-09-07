@@ -23,6 +23,8 @@ gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass'
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
 end
 
 group :development, :test do

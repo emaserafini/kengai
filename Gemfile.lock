@@ -57,7 +57,16 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
+    capistrano-rails (1.1.7)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -236,6 +245,8 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano (~> 3.6)
+  capistrano-rails (~> 1.1)
+  capistrano-rvm
   capybara
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
