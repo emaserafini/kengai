@@ -20,6 +20,9 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass'
 
+# UTILS
+gem 'dotenv-rails'
+
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'capistrano', '~> 3.6'
@@ -32,7 +35,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'rspec-collection_matchers'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'dotenv-rails'
 end
 
 group :test do

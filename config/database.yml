@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: kengai_production
-  username: kengai
-  password: <%= ENV['KENGAI_DATABASE_PASSWORD'] %>
