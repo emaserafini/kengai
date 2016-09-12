@@ -23,6 +23,7 @@ gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass'
 # UTILS
 gem 'dotenv-rails'
 gem 'rollbar'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'listen', '~> 3.0.5'
