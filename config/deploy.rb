@@ -38,3 +38,9 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets'
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+namespace :deploy do
+  after 'deploy:finished', 'puma:restart'
+  # Zero downtime deploy
+  # after 'deploy:finished', 'puma:phased-restart'
+end

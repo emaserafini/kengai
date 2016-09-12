@@ -32,18 +32,18 @@ namespace :puma do
   end
 
   desc 'Hot restart Puma'
-  task :hot_restart do
+  task 'hot-restart' do
     on roles(:app) do
-      execute :kill, "-s SIGUSR2 `cat #{fetch :puma_pid}`"
+      execute :kill, "-s SIGUSR2 `cat #{fetch(:puma_pid)}`"
     end
   end
 
-  %w[restart phased_restart].each do |command|
+  %w[restart phased-restart].each do |command|
     desc "#{command.gsub('_', ' ').capitalize} Puma"
     task command do
       on roles(:app) do
         within current_path do
-          execute :bundle, :exec,  "pumactl -S #{fetch(:puma_state)} -F #{fetch(:puma_config)} #{command.gsub('_', '-')}"
+          execute :bundle, :exec,  "pumactl -S #{fetch(:puma_state)} -F #{fetch(:puma_config)} #{command}"
         end
       end
     end
