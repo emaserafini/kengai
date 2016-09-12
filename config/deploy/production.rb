@@ -11,10 +11,10 @@ set :server_name, ENV['PRODUCTION_SERVER_NAME']
 
 # Puma configuration
 set :puma_config,  -> { "#{shared_path}/config/puma.rb" }
-set :puma_pid,     -> { "#{current_path}/tmp/puma.pid" }
-set :puma_sock,    -> { "#{current_path}/tmp/puma.sock" }
-set :puma_state,   -> { "#{current_path}/tmp/puma.state" }
-set :puma_log,     -> { "#{current_path}/log/puma.log" }
+set :puma_pid,     -> { "#{shared_path}/tmp/puma.pid" }
+set :puma_sock,    -> { "#{shared_path}/tmp/puma.sock" }
+set :puma_state,   -> { "#{shared_path}/tmp/puma.state" }
+set :puma_log,     -> { "#{shared_path}/log/puma.log" }
 set :puma_workers, 2
 set :puma_threads, '0, 16'
 

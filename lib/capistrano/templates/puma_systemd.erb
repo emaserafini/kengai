@@ -1,0 +1,16 @@
+[Unit]
+Description=Puma - <%= fetch(:application) %> <%= fetch(:rails_env) %>
+After=postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=<%= fetch(:user) %>
+PIDFile=<%= fetch(:puma_pid) %>
+
+WorkingDirectory=<%= current_path %>
+ExecStart=/home/<%= fetch(:user) %>/.rvm/wrappers/<%= fetch(:application_env) %>/bundle exec puma --config <%= fetch(:puma_config) %>
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+#!/usr/bin/env puma
+
+directory '<%= current_path %>'
+environment '<%= fetch(:rails_env) %>'
+
+pidfile '<%= fetch(:puma_pid) %>'
+state_path '<%= fetch(:puma_state) %>'
+stdout_redirect '<%= fetch(:puma_log) %>', '<%= fetch(:puma_log) %>', true
+
+threads <%= fetch(:puma_threads) %>
+bind 'unix://<%= fetch(:puma_sock) %>'
+workers <%= fetch(:puma_workers) %>
+tag '<%= fetch(:application_env) %>'
+
+plugin 'tmp_restart'
