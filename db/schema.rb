@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007065037) do
+ActiveRecord::Schema.define(version: 20161007090540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20161007065037) do
     t.integer  "status",                            null: false
     t.integer  "program_status",                    null: false
     t.datetime "started_at"
-    t.float    "deviation_temperature",             null: false
+    t.float    "offset_temperature",                null: false
     t.integer  "minimum_run",                       null: false
     t.float    "manual_program_target_temperature", null: false
     t.index ["access_token"], name: "index_thermostats_on_access_token", unique: true, using: :btree
