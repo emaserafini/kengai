@@ -23,5 +23,7 @@ module Kengai
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}')]
+
+    config.active_record.belongs_to_required_by_default = true
   end
 end
