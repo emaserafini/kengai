@@ -1,8 +1,14 @@
 FactoryGirl.define do
   factory :thermostat do
     sequence(:name) { |n| "home \##{n}" }
-    temperature
-    humidity
+    association :temperature, strategy: :build
+    association  :humidity, strategy: :build
+    enabled true
+    status :unknown
+    program_status :manual
+    offset_temperature 2
+    manual_program_target_temperature 20
+    minimum_run 15
 
     transient do
       user { create :confirmed_user }
@@ -11,17 +17,10 @@ FactoryGirl.define do
 
     after(:build) do |thermostat, evaluator|
       create :subscriber, user: evaluator.user, thermostat: thermostat, admin: evaluator.admin
-      create :manual_program, thermostat: thermostat
     end
 
-    trait :enabled do
-      enabled true
+    trait :disabled do
+      enabled false
     end
-
-    trait :manual do
-      program_status :manual
-    end
-
-    factory :manual_thermostat, traits: [ :enabled, :manual ]
   end
 end

@@ -19,10 +19,15 @@ module Application
 
     def create
       @thermostat = Thermostat.new(thermostat_params)
+      @thermostat.enabled = false
+      @thermostat.status = :unknown
+      @thermostat.program_status = :manual
+      @thermostat.offset_temperature = 2
+      @thermostat.manual_program_target_temperature = 20
+      @thermostat.minimum_run = 15
       @thermostat.subscribers.build user: current_user, admin: true
       @thermostat.build_temperature
       @thermostat.build_humidity
-      @thermostat.build_manual_program
 
       if @thermostat.save
         redirect_to @thermostat, notice: 'Thermostat was successfully created.'

@@ -3,7 +3,7 @@ module SafeUniqueness
 
   included do
     around_save :save_managing_uniqueness,
-      if: proc { |model| UNIQUE_FIELDS.map{ |field| model.send("#{field}_changed?") }.include?(true) }
+      if: proc { |model| unique_fields(model).map{ |field| model.send("#{field}_changed?") }.include?(true) }
   end
 
   def save_managing_uniqueness
@@ -15,11 +15,18 @@ module SafeUniqueness
     attempts += 1
     if attempts < 3
       duplicated_field = error.message[/Key \((\w+)\)/, 1]
-      send("assign_#{duplicated_field}", true) if duplicated_field && UNIQUE_FIELDS.include?(duplicated_field)
+      send("assign_#{duplicated_field}", true) if duplicated_field && unique_fields(self).include?(duplicated_field)
       self.class.connection.execute('ROLLBACK TO SAVEPOINT before_record_create;')
       retry
     else
       raise error, 'Retries exhausted'
     end
+  end
+
+
+  private
+
+  def unique_fields model
+    model.class::UNIQUE_FIELDS
   end
 end

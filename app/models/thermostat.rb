@@ -1,21 +1,25 @@
 class Thermostat < ApplicationRecord
+  include SafeUniqueness
+
   UNIQUE_FIELDS = %w(uuid access_token).freeze
+
+  enum status: { standby: 0, unknown: 1, heating: 2 }
+  enum program_status: { manual: 0, auto: 1 }
 
   has_many :subscribers, inverse_of: :thermostat, dependent: :destroy
   has_many :users, through: :subscribers
   belongs_to :temperature, class_name: 'Temperature', dependent: :destroy
   belongs_to :humidity, class_name: 'Humidity', dependent: :destroy
 
-  enum status: { standby: 0, unknown: 1, heating: 2, cooling: 3 }
-  enum program_status: { manual: 0, auto: 1 }
+  accepts_nested_attributes_for :temperature, :humidity
 
-  before_validation :set_default_values, on: :create
   before_save :assign_uuid, :assign_access_token
   before_update :update_started_at, if: :status_changed?
 
-  validates :name, :status, :program_status, presence: true
-
-  accepts_nested_attributes_for :temperature, :humidity
+  validates_presence_of :name, :status, :program_status
+  validates_numericality_of :offset_temperature, greater_than_or_equal_to: 0
+  validates_numericality_of :manual_program_target_temperature
+  validates_numericality_of :minimum_run, only_integer: true, greater_than_or_equal_to: 0
 
   def to_param
     uuid
@@ -23,6 +27,10 @@ class Thermostat < ApplicationRecord
 
   def program
     send "#{program_status}_program"
+  end
+
+  def manual_program
+    OpenStruct.new target_temperature: manual_program_target_temperature
   end
 
   def active?

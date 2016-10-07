@@ -10,10 +10,47 @@ RSpec.describe Thermostat, type: :model do
       expect(subject).to have(1).error_on :temperature
     end
 
+    it 'require humidity to be present' do
+      expect(subject).to have(1).error_on :humidity
+    end
+
+    it 'require status to be present' do
+      expect(subject).to have(1).error_on :status
+    end
+
+    it 'require program_status to be present' do
+      expect(subject).to have(1).error_on :program_status
+    end
+
+    it 'require manual_program_target_temperature to be numerically' do
+      expect(subject).to have(1).error_on :manual_program_target_temperature
+      subject.manual_program_target_temperature = 'foo'
+      expect(subject).to have(1).error_on :manual_program_target_temperature
+    end
+
+    it 'require offset_temperature to be greater or equal to 0' do
+      expect(subject).to have(1).error_on :offset_temperature
+      subject.offset_temperature = -5
+      expect(subject).to have(1).error_on :offset_temperature
+    end
+
+    it 'require minimum_run to be greater or equal to 0 and integer' do
+      expect(subject).to have(1).error_on :minimum_run
+      subject.minimum_run = -4
+      expect(subject).to have(1).error_on :minimum_run
+      subject.minimum_run = 3.8
+      expect(subject).to have(1).error_on :minimum_run
+    end
+
     it 'pass when constraints are met' do
-      subject.name        = 'name'
-      subject.temperature = build :temperature
-      subject.humidity    = build :humidity
+      subject.name                              = 'name'
+      subject.temperature                       = build :temperature
+      subject.humidity                          = build :humidity
+      subject.status                            = :standby
+      subject.program_status                    = :manual
+      subject.manual_program_target_temperature = 20
+      subject.offset_temperature                = 2
+      subject.minimum_run                       = 15
       expect(subject).to be_valid
     end
   end

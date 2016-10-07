@@ -5,7 +5,7 @@ FactoryGirl.define do
     password_confirmation 'password'
 
     factory :confirmed_user do
-      after(:create, &:confirm)
+      after :build, &:skip_confirmation!
     end
   end
 end
