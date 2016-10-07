@@ -10,22 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006070400) do
+ActiveRecord::Schema.define(version: 20161007065037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
-
-  create_table "manual_programs", force: :cascade do |t|
-    t.integer  "thermostat_id",         null: false
-    t.integer  "mode",                  null: false
-    t.float    "target_temperature",    null: false
-    t.float    "deviation_temperature", null: false
-    t.integer  "minimum_run",           null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.index ["thermostat_id"], name: "index_manual_programs_on_thermostat_id", using: :btree
-  end
 
   create_table "sensors", force: :cascade do |t|
     t.string   "type",             null: false
@@ -48,18 +37,19 @@ ActiveRecord::Schema.define(version: 20161006070400) do
 
   create_table "thermostats", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.uuid     "uuid",                  null: false
-    t.uuid     "access_token",          null: false
-    t.boolean  "enabled",               null: false
-    t.integer  "temperature_id",        null: false
-    t.integer  "humidity_id",           null: false
-    t.integer  "status",                null: false
-    t.integer  "program_status",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.uuid     "uuid",                              null: false
+    t.uuid     "access_token",                      null: false
+    t.boolean  "enabled",                           null: false
+    t.integer  "temperature_id",                    null: false
+    t.integer  "humidity_id",                       null: false
+    t.integer  "status",                            null: false
+    t.integer  "program_status",                    null: false
     t.datetime "started_at"
-    t.float    "deviation_temperature", null: false
-    t.integer  "minimum_run",           null: false
+    t.float    "deviation_temperature",             null: false
+    t.integer  "minimum_run",                       null: false
+    t.float    "manual_program_target_temperature", null: false
     t.index ["access_token"], name: "index_thermostats_on_access_token", unique: true, using: :btree
     t.index ["humidity_id"], name: "index_thermostats_on_humidity_id", using: :btree
     t.index ["temperature_id"], name: "index_thermostats_on_temperature_id", using: :btree
@@ -88,7 +78,6 @@ ActiveRecord::Schema.define(version: 20161006070400) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "manual_programs", "thermostats"
   add_foreign_key "subscribers", "thermostats"
   add_foreign_key "subscribers", "users"
 end
