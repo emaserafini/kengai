@@ -44,7 +44,7 @@ RSpec.describe API::ThermostatsController, type: :controller do
           put :update, params: { uuid: thermostat.uuid, thermostat: { name: 'foo' } }
         end
 
-        it { is_expected.to have_http_status :unauthorized }
+        it { expect(response).to have_http_status :unauthorized }
         it { expect(response.content_type).to eq 'application/json' }
 
         it 'returns an error message' do
