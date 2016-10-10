@@ -53,4 +53,19 @@ Rollbar.configure do |config|
   # setup for Heroku. See:
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
   config.environment = ENV['ROLLBAR_ENV'] || Rails.env
+
+  config.exception_level_filters.merge!('ActionController::RoutingError' => lambda { |e|
+    if e.message =~ %r(No route matches \[[A-Z]+\] "/(.+)")
+      path = $1
+      first_node = path.split('/').first.to_s.downcase
+      if %w(assets myadmin phpmyadmin w00tw00t pma cgi-bin xmlrpc.php wp wordpress cfide).include?(first_node) ||
+         path =~ /(xml|php)/ || path =~ /^db/
+        'ignore'
+      else
+        'warning'
+      end
+    else
+      'critical'
+    end
+  })
 end
