@@ -25,20 +25,5 @@ module API
     def thermostat_params
       params.require(:thermostat).permit(:name, :enabled, temperature_attributes: [:value])
     end
-
-    def authenticate_token
-      authenticate_with_http_token do |token, options|
-        @thermostat.access_token == token
-      end
-    end
-
-    def render_unauthorized
-      headers['WWW-Authenticate'] = 'Token realm="Application"'
-      render json: { errors: 'invalid token' }, status: :unauthorized
-    end
-
-    def authenticate
-      authenticate_token || render_unauthorized
-    end
   end
 end

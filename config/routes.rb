@@ -13,9 +13,11 @@ Rails.application.routes.draw do
     root 'home#index'
   end
 
-  namespace :api do
+  namespace :api, format: 'json' do
     constraints(uuid: UUID_REGEXP) do
-      resources :thermostats, param: :uuid, only: [:show, :update]
+      resources :thermostats, param: :uuid, only: [:show, :update] do
+        resource :sensors, only: :update
+      end
     end
   end
 end

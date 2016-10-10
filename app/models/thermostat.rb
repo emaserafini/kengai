@@ -11,7 +11,7 @@ class Thermostat < ApplicationRecord
   belongs_to :temperature, class_name: 'Temperature', dependent: :destroy
   belongs_to :humidity, class_name: 'Humidity', dependent: :destroy
 
-  accepts_nested_attributes_for :temperature, :humidity
+  accepts_nested_attributes_for :temperature, :humidity, update_only: true
 
   before_save :assign_uuid, :assign_access_token
   before_update :update_started_at, if: :status_changed?
