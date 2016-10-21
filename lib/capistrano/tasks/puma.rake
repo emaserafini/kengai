@@ -43,7 +43,7 @@ namespace :puma do
     task command do
       on roles(:app) do
         within current_path do
-          execute :bundle, :exec,  "pumactl -S #{fetch(:puma_state)} -F #{fetch(:puma_config)} #{command}"
+          execute :pumactl, "-S #{fetch(:puma_state)} -F #{fetch(:puma_config)} #{command}"
         end
       end
     end

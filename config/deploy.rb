@@ -31,7 +31,7 @@ set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 append :linked_files, 'config/puma.rb'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets'
+append :linked_dirs, 'log', 'tmp'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -39,8 +39,9 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+append :rvm_map_bins, 'bundle', 'puma', 'pumactl'
+append :bundle_bins, 'puma', 'pumactl'
+
 namespace :deploy do
-  after 'deploy:finished', 'puma:restart'
-  # Zero downtime deploy
-  # after 'deploy:finished', 'puma:phased-restart'
+  after 'deploy:published', 'puma:restart'
 end

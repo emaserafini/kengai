@@ -11,5 +11,3 @@ threads <%= fetch(:puma_threads) %>
 bind 'unix://<%= fetch(:puma_sock) %>'
 workers <%= fetch(:puma_workers) %>
 tag '<%= fetch(:application_env) %>'
-
-plugin 'tmp_restart'
