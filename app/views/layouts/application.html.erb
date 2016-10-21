@@ -9,7 +9,55 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= render 'header' %>
+    <%# render 'header' %>
+    <div class="ui top attached menu">
+      <div class="header item">
+        kengai
+      </div>
+      <div class="menu right">
+        <a class="item">
+          <i class="sidebar icon"></i>
+        </a>
+      </div>
+    </div>
+    <div class="ui bottom attached segment pushable">
+      <div class="ui dropdown item">
+        More
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item"><i class="edit icon"></i> Edit Profile</a>
+          <a class="item"><i class="globe icon"></i> Choose Language</a>
+          <a class="item"><i class="settings icon"></i> Account Settings</a>
+        </div>
+      </div>
+      <div class="ui labeled icon right inline vertical sidebar menu">
+        <a class="item">
+          <i class="home icon"></i>
+          Home
+        </a>
+        <a class="item">
+          <i class="block layout icon"></i>
+          Topics
+        </a>
+        <a class="item">
+          <i class="smile icon"></i>
+          Friends
+        </a>
+        <a class="item">
+          <i class="calendar icon"></i>
+          History
+        </a>
+      </div>
+      <div class="pusher">
+        <div class="ui basic segment">
+          <h3 class="ui header">Application Content</h3>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </div>
+    </div>
     <p id="notice"><%= notice %></p>
     <%= yield %>
   </body>
