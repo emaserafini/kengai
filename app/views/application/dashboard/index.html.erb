@@ -1,9 +1,7 @@
 <% if @thermostats.any? %>
-  <div class="ui container">
-    <% @thermostats.each do |thermostat| %>
-      <%= render partial: 'thermostat', object: thermostat %>
-    <% end %>
-  </div>
+  <div class="thermostats ui items">
+    <%= render partial: 'thermostat', collection: @thermostats %>
+  </dir>
 <% else %>
-  <%= link_to 'Add thermostat', new_thermostat_path  %>
+  <%= link_to 'Add thermostat', new_thermostat_path  %> -->
 <% end %>

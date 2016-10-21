@@ -1,0 +1,12 @@
+<div class="ui attached menu">
+  <%= link_to 'kengai', root_path, class: 'header item' %>
+  <div class="menu right">
+    <% if current_user %>
+      <a id="sidebar-trigger" class="item">
+        <i class="sidebar icon"></i>
+      </a>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path, class: 'item' %>
+    <% end %>
+  </div>
+</div>
